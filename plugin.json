@@ -1,0 +1,17 @@
+{
+  "name": "Legion Go 2 Brightness fix CachyOS",
+  "author": "Community",
+  "flags": [
+    "_root"
+  ],
+  "api_version": 2,
+  "publish": {
+    "tags": [
+      "hardware",
+      "brightness",
+      "legion-go-2"
+    ],
+    "description": "Brightness control for Legion Go 2 (bypasses Steam's broken PWM control)",
+    "image": ""
+  }
+}

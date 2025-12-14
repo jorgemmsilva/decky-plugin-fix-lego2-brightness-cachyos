@@ -1,0 +1,47 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Create plugin zip
+        run: |
+          mkdir -p release/legion-go2-brightness
+          cp plugin.json release/legion-go2-brightness/
+          cp package.json release/legion-go2-brightness/
+          cp main.py release/legion-go2-brightness/
+          cp -r dist release/legion-go2-brightness/
+          cd release && zip -r legion-go2-brightness.zip legion-go2-brightness
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/legion-go2-brightness.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
