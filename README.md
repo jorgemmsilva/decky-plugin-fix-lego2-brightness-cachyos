@@ -2,14 +2,6 @@
 
 Decky Loader plugin that fixes brightness control for Legion Go 2 in Steam Game Mode.
 
-## Problem
-
-Steam's Game Mode uses PWM backlight signals for brightness control, which the Legion Go 2's panel ignores. The panel requires direct writes to the AMD backlight sysfs interface.
-
-## Solution
-
-This plugin bypasses Steam's brightness control and writes directly to `/sys/class/backlight/amdgpu_bl1/brightness`.
-
 ## Installation
 
 ### From Git URL (Recommended)
